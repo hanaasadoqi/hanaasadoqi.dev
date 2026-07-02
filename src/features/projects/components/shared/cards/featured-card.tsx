@@ -1,6 +1,7 @@
 'use client';
 
 import { LinkButton } from '@/components';
+import { StatusBadge } from '@/components/shared/display/badges';
 import { prepareIcons, TechStackIcons } from '@/features/icons/tech-stack';
 import ProjectCardHeader from '@/features/projects/components/shared/cards/card-primitives/header';
 import { getProjectDisplay } from '@/features/projects/lib/project-display';
@@ -26,23 +27,34 @@ export function FeaturedProjectCard({
       className="group border-border/40 bg-background/40 text-card-foreground shadow-elevation-2 hover:shadow-elevation-3 hover:border-border/70 relative flex h-[min(76svh,660px)] min-h-[540px] max-w-[min(84vw,520px)] min-w-[min(84vw,520px)] snap-start flex-col rounded-2xl border p-7 backdrop-blur-sm motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out hover:motion-safe:-translate-y-1.5 sm:max-w-[560px] sm:min-w-[560px] md:max-w-[640px] md:min-w-[640px] md:p-9 lg:max-w-[720px] lg:min-w-[720px]"
       aria-label={`Featured project: ${featured.title}`}
     >
-      <ProjectCardHeader
-        title={featured.title}
-        meta={display.meta}
-        subtitle={featured.subtitle}
-        status={featured.status.value}
-        isFeatured
-        showFeaturedBadge={false}
-        titleClassName="type-panel-title"
-        subtitleClassName="mb-4 text-balance"
-        badgeTrailing={
+      {/* Header with eyebrow-style badge */}
+      <div className="flex flex-col space-y-4">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex flex-col gap-2">
+            <StatusBadge status={featured.status.value}>
+              {featured.status.value}
+            </StatusBadge>
+          </div>
           <TechStackIcons
             items={techStackIcons}
-            className="opacity-70"
+            className="opacity-70 shrink-0"
             showLabel={false}
           />
-        }
-      />
+        </div>
+        <div>
+          <h2 className="type-panel-title text-balance">{featured.title}</h2>
+          {featured.subtitle && (
+            <p className="type-body-sm text-muted-foreground/70 mt-2">
+              {featured.subtitle}
+            </p>
+          )}
+          {display.meta && (
+            <p className="type-caption text-muted-foreground/50 mt-2">
+              {display.meta}
+            </p>
+          )}
+        </div>
+      </div>
 
       <FeaturedProjectDetails featured={featured} />
 
@@ -53,14 +65,14 @@ export function FeaturedProjectCard({
 
 function FeaturedProjectDetails({ featured }: { featured: FeaturedProject }) {
   return (
-    <div className="relative min-h-0 flex-1">
+    <div className="relative min-h-0 flex-1 my-6">
       <div
         tabIndex={0}
         aria-label={`Details for ${featured.title}`}
         className="no-scrollbar focus-visible:ring-ring h-full overflow-y-auto rounded-md pr-3 focus-visible:ring-2 focus-visible:outline-none"
       >
-        <div className="grid grid-cols-1 gap-6 pb-6 sm:grid-cols-2 sm:gap-7">
-          <div className="space-y-6">
+        <div className="grid grid-cols-1 gap-8 pb-6 sm:grid-cols-2 sm:gap-9">
+          <div className="space-y-8">
             {featured.problem && (
               <ProjectDetailBlock label="The problem" text={featured.problem} />
             )}
@@ -72,7 +84,7 @@ function FeaturedProjectDetails({ featured }: { featured: FeaturedProject }) {
             )}
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-8">
             <ProjectDetailList
               items={featured.challenges ?? []}
               label="Key challenges"
@@ -95,8 +107,12 @@ function FeaturedProjectDetails({ featured }: { featured: FeaturedProject }) {
 function ProjectDetailBlock({ label, text }: { label: string; text: string }) {
   return (
     <div>
-      <p className="type-eyebrow mb-2">{label}</p>
-      <p className="type-body-sm">{text}</p>
+      <p className="text-xs uppercase tracking-widest font-medium text-muted-foreground/60 mb-3">
+        {label}
+      </p>
+      <p className="type-body-sm text-muted-foreground/80 leading-relaxed">
+        {text}
+      </p>
     </div>
   );
 }
@@ -112,12 +128,14 @@ function ProjectDetailList({
 
   return (
     <div>
-      <p className="type-eyebrow mb-2">{label}</p>
+      <p className="text-xs uppercase tracking-widest font-medium text-muted-foreground/60 mb-3">
+        {label}
+      </p>
       <ul className="space-y-2">
         {items.map((item) => (
-          <li key={item} className="type-body-sm flex items-start gap-2">
+          <li key={item} className="type-body-sm text-muted-foreground/80 flex items-start gap-2 leading-relaxed">
             <span
-              className="mt-[5px] size-1 shrink-0 rounded-full bg-current opacity-25"
+              className="mt-[5px] size-1 shrink-0 rounded-full bg-current opacity-35 flex-shrink-0"
               aria-hidden="true"
             />
             <span>{item}</span>
@@ -136,7 +154,7 @@ export function FeaturedProjectFooter({
   featured: FeaturedProject;
 }) {
   return (
-    <footer className="border-border/30 mt-5 flex shrink-0 items-center justify-between space-y-5 border-t pt-5">
+    <footer className="border-border/30 mt-6 flex shrink-0 items-center justify-between border-t pt-6">
       <RelatedCaseStudiesLink
         display={display}
         projectSlug={featured.slug}
