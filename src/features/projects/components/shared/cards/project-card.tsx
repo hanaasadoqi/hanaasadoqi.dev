@@ -89,11 +89,10 @@ export function ProjectCard({
           </details>
         )}
 
+        {/* Only show case study count, no status/featured badges or tags */}
         <ProjectChipRail
-          status={display.status}
-          isFeatured={isFeatured}
           caseStudyCount={display.caseStudyCount}
-          tags={display.focus}
+          tags={[]}
         />
 
         <div className="flex-1" />
@@ -101,11 +100,9 @@ export function ProjectCard({
           linkLabel={display.link.label}
           linkDisabled={display.link.isDisabled}
           linkExternal={display.link.isExternal}
-          techItems={techStackIcons}
           linkClassName={
             display.link.isDisabled ? undefined : 'group-hover:text-foreground'
           }
-          techClassName="transition-[opacity,scale] hover:scale-115 hover:opacity-100 motion-safe:duration-200 motion-safe:ease-linear"
         />
       </div>
     </article>
