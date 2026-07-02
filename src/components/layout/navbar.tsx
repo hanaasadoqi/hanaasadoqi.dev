@@ -15,7 +15,7 @@ import { siteNavigationLinks } from '@/constants';
 import { MenuIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
-import { Logo } from '../shared';
+import { Logo } from '../shared/logo';
 
 export type NavLink = {
   href: string;
