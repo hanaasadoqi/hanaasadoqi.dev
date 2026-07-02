@@ -3,7 +3,7 @@
 import {
   TechStackIcons,
   type TechStackIcon,
-} from '../../../../../../../archives/icons/tech-stack';
+} from '@/features/icons/tech-stack';
 import { cn } from '@/lib/utils';
 
 export function ProjectCardFooter({
