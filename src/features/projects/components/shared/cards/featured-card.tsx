@@ -27,30 +27,41 @@ export function FeaturedProjectCard({
       className="group border-border/40 bg-background/40 text-card-foreground shadow-elevation-2 hover:shadow-elevation-3 hover:border-border/70 relative flex h-[min(76svh,660px)] min-h-[540px] max-w-[min(84vw,520px)] min-w-[min(84vw,520px)] snap-start flex-col rounded-2xl border p-7 backdrop-blur-sm motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out hover:motion-safe:-translate-y-1.5 sm:max-w-[560px] sm:min-w-[560px] md:max-w-[640px] md:min-w-[640px] md:p-9 lg:max-w-[720px] lg:min-w-[720px]"
       aria-label={`Featured project: ${featured.title}`}
     >
-      {/* Header: Eyebrow Badge + Title + Tech Stack */}
-      <div className="relative flex flex-col space-y-3 mb-2">
-        {/* Status Badge as Eyebrow */}
-        <div className="flex items-center gap-2">
-          <StatusBadge status={featured.status.value} />
+      {/* Header: Eyebrow Badge + Featured Indicator + Title + Tech Stack */}
+      <div className="relative flex flex-col space-y-4 mb-3">
+        {/* Top Row: Status Badge + Featured Indicator + Tech Stack (VARIATION C: Premium positioning) */}
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <StatusBadge status={featured.status.value} />
+            {display.isFeaturedProject && (
+              <div
+                className="flex items-center justify-center w-5 h-5 rounded-full border border-foreground/25 bg-foreground/8"
+                title="Featured project"
+                aria-label="Featured"
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-foreground/50" />
+              </div>
+            )}
+          </div>
           {techStackIcons.length > 0 && (
             <TechStackIcons
               items={techStackIcons}
-              className="size-4 opacity-50 ml-auto"
+              className="size-4 opacity-60 shrink-0"
               showLabel={false}
             />
           )}
         </div>
 
         {/* Title + Subtitle + Meta */}
-        <div>
+        <div className="space-y-2">
           <h2 className="type-panel-title text-balance">{featured.title}</h2>
           {featured.subtitle && (
-            <p className="type-body-sm text-muted-foreground/75 mt-2">
+            <p className="type-body-sm text-muted-foreground/80 leading-relaxed">
               {featured.subtitle}
             </p>
           )}
           {display.meta && (
-            <p className="type-caption text-muted-foreground/50 mt-1">
+            <p className="type-caption text-muted-foreground/55 font-medium">
               {display.meta}
             </p>
           )}
@@ -72,8 +83,8 @@ function FeaturedProjectDetails({ featured }: { featured: FeaturedProject }) {
         aria-label={`Details for ${featured.title}`}
         className="no-scrollbar focus-visible:ring-ring h-full overflow-y-auto rounded-md pr-3 focus-visible:ring-2 focus-visible:outline-none"
       >
-        <div className="grid grid-cols-1 gap-6 pb-6 sm:grid-cols-2 sm:gap-7">
-          <div className="space-y-6">
+        <div className="grid grid-cols-1 gap-8 pb-6 sm:grid-cols-2 sm:gap-9">
+          <div className="space-y-8">
             {featured.problem && (
               <ProjectDetailBlock label="The problem" text={featured.problem} />
             )}
@@ -85,7 +96,7 @@ function FeaturedProjectDetails({ featured }: { featured: FeaturedProject }) {
             )}
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-8">
             <ProjectDetailList
               items={featured.challenges ?? []}
               label="Key challenges"

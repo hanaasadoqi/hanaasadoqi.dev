@@ -60,21 +60,24 @@ export function ProjectCard({
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col px-6 py-4 space-y-3">
-        {/* Description */}
+        {/* Primary Description */}
         <p className="type-body-sm text-muted-foreground/80">{display.subtitle}</p>
 
-        {/* Inline Focus Tags + Tech Icons (Horizontal) */}
-        <div className="flex flex-wrap items-center gap-2 pt-1">
-          {hasFocusAreas && display.focus.map((tag) => (
-            <span
-              key={tag}
-              className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium text-muted-foreground/70 border border-border/40 bg-background/40"
-            >
-              {tag}
-            </span>
-          ))}
+        {/* Metadata Row: Focus Tags · Tech Icons | Case Study Count */}
+        <div className="flex flex-wrap items-center gap-2 justify-between pt-2 pb-1">
+          <div className="flex flex-wrap items-center gap-1.5">
+            {hasFocusAreas && display.focus.map((tag, idx) => (
+              <div key={tag} className="flex items-center gap-1.5">
+                {idx > 0 && <span className="text-muted-foreground/40 text-xs">·</span>}
+                <span className="text-xs font-medium text-muted-foreground/75">
+                  {tag}
+                </span>
+              </div>
+            ))}
+          </div>
+          
           {hasTechStack && (
-            <div className="flex items-center gap-1 ml-auto">
+            <div className="flex items-center gap-1 shrink-0">
               <TechStackIcons
                 items={techStackIcons}
                 className="size-4"
@@ -84,10 +87,12 @@ export function ProjectCard({
           )}
         </div>
 
-        {/* Case Study Count */}
+        {/* Case Study Count Badge */}
         {display.caseStudyCount > 0 && (
-          <div className="pt-1">
-            <ProjectChipRail caseStudyCount={display.caseStudyCount} tags={[]} />
+          <div className="flex items-center gap-2 pt-1">
+            <span className="text-xs font-medium text-muted-foreground/70">
+              {display.caseStudyCount} {display.caseStudyCount === 1 ? 'case study' : 'case studies'}
+            </span>
           </div>
         )}
 
