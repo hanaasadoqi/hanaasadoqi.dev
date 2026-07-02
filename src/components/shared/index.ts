@@ -1,7 +1,6 @@
 export * from './display/badges';
 export * from './buttons';
 export * from './display/cards';
-export * from '../../../archives/icons';
 export * from './links';
 export * from './navigation';
 export * from './states';
