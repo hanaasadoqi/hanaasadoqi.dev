@@ -1,10 +1,7 @@
 'use client';
 
 import { LinkButton } from '@/components';
-import {
-  prepareIcons,
-  TechStackIcons,
-} from '../../../../../../archives/icons/tech-stack';
+import { prepareIcons, TechStackIcons } from '@/features/icons/tech-stack';
 import ProjectCardHeader from '@/features/projects/components/shared/cards/card-primitives/header';
 import { getProjectDisplay } from '@/features/projects/lib/project-display';
 import type { CaseStudy, Project } from '@/features/projects/types';
